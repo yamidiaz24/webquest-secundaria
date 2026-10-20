@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebQuest: Come bien, vive mejor</title>
+<style>
+:root{
+  --verde:#2e7d32; --verde-osc:#1b5e20; --verde-cl:#e8f5e9;
+  --naranja:#ef6c00; --naranja-cl:#fff3e0;
+  --crema:#fbf6ea; --tinta:#25302a; --gris:#5f6b64; --borde:#dfe6e0;
+  --ok:#2e7d32; --mal:#c62828; --azul:#1565c0; --azul-cl:#e3f2fd;
+  --radio:20px; --sombra:0 6px 22px rgba(30,70,45,.09);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,system-ui,sans-serif;font-size:17px;line-height:1.65;color:var(--tinta);background-color:var(--crema);background-image:radial-gradient(circle at 6% 10%,rgba(129,199,132,.32),transparent 38%),radial-gradient(circle at 94% 6%,rgba(255,183,77,.34),transparent 36%),radial-gradient(circle at 92% 88%,rgba(165,214,167,.34),transparent 40%),radial-gradient(circle at 8% 90%,rgba(255,204,128,.30),transparent 38%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%232e7d32' stroke-opacity='.11' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 46c0-19 15-32 36-32 0 21-13 34-36 32z'/%3E%3Cpath d='M23 41c11-8 19-15 27-24'/%3E%3Cpath d='M104 128l30 8-11 30z'/%3E%3Cpath d='M124 134c3-9 9-14 16-15'/%3E%3Ccircle cx='40' cy='128' r='3'/%3E%3Ccircle cx='70' cy='150' r='2'/%3E%3Ccircle cx='150' cy='60' r='2'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ef6c00' stroke-opacity='.12' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='120' cy='54' r='15'/%3E%3Cpath d='M120 39c0-8 4-12 10-13'/%3E%3Cpath d='M113 36c-5-5-12-4-15 0 5 5 12 5 15 0z'/%3E%3Cpath d='M30 96c9-6 20-3 24 6-9 6-20 3-24-6z'/%3E%3C/g%3E%3C/svg%3E");background-attachment:fixed,fixed,fixed,fixed,scroll}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em}
+h2{font-size:1.75rem;color:var(--verde-osc)}
+h1,h2{font-family:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;letter-spacing:.2px}
+main>section>h2::after{content:"";display:block;width:70px;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--verde),var(--naranja));margin-top:10px}
+main>section>h2{margin-bottom:1em}
+h3{font-size:1.2rem;color:var(--verde-osc)}
+p{margin:0 0 1em}
+p,li,a,td,th,h1,h2,h3,h4,.apa{overflow-wrap:anywhere}
+a{color:var(--azul)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 16px}
+
+/* Cabecera */
+header.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--verde-osc),var(--verde) 55%,var(--naranja));color:#fff;padding:38px 0 34px}
+header.hero::before{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 46c0-19 15-32 36-32 0 21-13 34-36 32z'/%3E%3Cpath d='M23 41c11-8 19-15 27-24'/%3E%3Cpath d='M104 128l30 8-11 30z'/%3E%3Cpath d='M124 134c3-9 9-14 16-15'/%3E%3Ccircle cx='40' cy='128' r='3'/%3E%3Ccircle cx='70' cy='150' r='2'/%3E%3Ccircle cx='150' cy='60' r='2'/%3E%3C/g%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='120' cy='54' r='15'/%3E%3Cpath d='M120 39c0-8 4-12 10-13'/%3E%3Cpath d='M113 36c-5-5-12-4-15 0 5 5 12 5 15 0z'/%3E%3Cpath d='M30 96c9-6 20-3 24 6-9 6-20 3-24-6z'/%3E%3C/g%3E%3C/svg%3E");opacity:.35;pointer-events:none}
+header.hero .wrap{position:relative}
+.plato{margin-left:auto;flex:0 0 auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+.plato svg{width:170px;height:170px;display:block}
+.hero .wrap{display:flex;gap:22px;align-items:center;flex-wrap:nowrap}
+.hero .wrap>div:nth-child(2){flex:1 1 auto;min-width:0}
+.hero .emoji{font-size:3.4rem;line-height:1}
+.hero h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:0 0 .25em;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hero p{margin:0;opacity:.95}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.badge{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.45);border-radius:999px;padding:3px 12px;font-size:.88rem}
+
+/* Pestañas */
+nav.tabs{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--borde);box-shadow:0 2px 10px rgba(0,0,0,.05)}
+nav.tabs .wrap{padding:0 8px}
+[role=tablist]{display:flex;gap:4px;overflow-x:auto;scrollbar-width:thin;padding:8px 8px}
+[role=tab]{flex:0 0 auto;border:0;background:transparent;font:inherit;font-size:.95rem;font-weight:600;color:var(--gris);padding:10px 14px;border-radius:12px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:6px}
+[role=tab]:hover{background:var(--verde-cl);color:var(--verde-osc)}
+[role=tab][aria-selected=true]{background:linear-gradient(135deg,var(--verde),#43a047);color:#fff;box-shadow:0 3px 8px rgba(46,125,50,.35)}
+[role=tab]:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,.chip:focus-visible{outline:3px solid var(--azul);outline-offset:2px}
+.tab-ico{font-size:1.1rem}
+
+main{padding:26px 0 40px}
+[role=tabpanel]{display:none;animation:fade .25s ease}
+[role=tabpanel].activo{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Tarjetas y rejillas */
+.card{background:rgba(255,255,255,.93);border:1px solid rgba(46,125,50,.14);border-radius:var(--radio);padding:20px 22px;box-shadow:0 6px 22px rgba(30,70,45,.09)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card.verde{background:var(--verde-cl);border-color:#c8e6c9}
+.card.naranja{background:var(--naranja-cl);border-color:#ffe0b2}
+.card.azul{background:var(--azul-cl);border-color:#bbdefb}
+.card h3 .ico{font-size:1.5rem;margin-right:6px;vertical-align:-3px}
+.lead{font-size:1.12rem}
+.note{font-size:.92rem;color:var(--gris)}
+.stat{display:flex;gap:14px;flex-wrap:wrap;margin:14px 0}
+.stat div{flex:1 1 150px;background:#fff;border:2px solid var(--naranja);border-radius:14px;padding:10px 14px;text-align:center}
+.stat b{display:block;font-size:2rem;color:var(--naranja);line-height:1.1}
+.stack>*+*{margin-top:16px}
+
+/* Listas */
+ul.check{list-style:none;padding:0;margin:0}
+ul.check li{padding:6px 0}
+ul.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer}
+ul.check input{margin-top:.4em;width:18px;height:18px;accent-color:var(--verde)}
+ol.pasos{counter-reset:p;list-style:none;padding:0;margin:0}
+ol.pasos li{counter-increment:p;position:relative;padding:8px 0 8px 44px}
+ol.pasos li::before{content:counter(p);position:absolute;left:0;top:8px;width:30px;height:30px;border-radius:50%;background:var(--verde);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.95rem}
+.obj{display:flex;gap:14px;align-items:flex-start}
+.obj .n{flex:0 0 40px;height:40px;border-radius:12px;background:var(--verde);color:#fff;display:grid;place-items:center;font-weight:800}
+.chip{display:inline-block;background:var(--azul-cl);color:var(--azul);border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;margin:4px 6px 0 0}
+.rol{text-align:center}
+.rol .big{font-size:2.4rem}
+.dia{border-left:6px solid var(--naranja)}
+.dia h3{color:var(--naranja)}
+
+/* Recursos */
+.rec a.btn{display:inline-block;margin-top:6px}
+.btn{font:inherit;font-weight:700;border:0;border-radius:12px;padding:10px 18px;background:var(--verde);color:#fff;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--verde-osc)}
+.btn.sec{background:#fff;color:var(--verde-osc);border:2px solid var(--verde)}
+.btn.sec:hover{background:var(--verde-cl)}
+.tipo{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--naranja)}
+.apa{font-size:.93rem;color:var(--gris);padding-left:1.6em;text-indent:-1.6em}
+
+/* Rúbrica */
+.tabla-wrap{overflow-x:auto;border:1px solid var(--borde);border-radius:var(--radio);background:#fff;box-shadow:var(--sombra)}
+table.rub{border-collapse:collapse;width:100%;min-width:820px;font-size:.9rem;line-height:1.45}
+.rub th,.rub td{border:1px solid var(--borde);padding:10px;vertical-align:top;text-align:left}
+.rub thead th{color:#fff;font-size:.95rem}
+.rub thead th:nth-child(1){background:var(--verde-osc)}
+.rub thead th:nth-child(2){background:#2e7d32}
+.rub thead th:nth-child(3){background:#558b2f}
+.rub thead th:nth-child(4){background:#ef6c00}
+.rub thead th:nth-child(5){background:#c62828}
+.rub tbody th{background:var(--verde-cl);width:16%}
+.rub tbody th small{display:block;font-weight:400;color:var(--gris)}
+
+/* Quiz */
+.q{background:#fff;border:2px solid var(--borde);border-radius:var(--radio);padding:18px 20px;margin-bottom:16px}
+.q.ok{border-color:var(--ok);background:#f3fbf4}
+.q.mal{border-color:var(--mal);background:#fdf5f5}
+.q h4{font-size:1.05rem;margin-bottom:.7em}
+.q .tag{font-size:.75rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--naranja);display:block;margin-bottom:4px}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:10px;cursor:pointer}
+.opt:hover{background:var(--verde-cl)}
+.opt input{margin-top:.4em;width:18px;height:18px;accent-color:var(--verde)}
+.fb{display:none;margin-top:10px;padding:10px 12px;border-radius:10px;font-size:.93rem}
+.q.ok .fb{display:block;background:#e3f4e5;color:#1b5e20}
+.q.mal .fb{display:block;background:#fbe3e3;color:#8e1b1b}
+.banco,.zona{min-height:64px;border:2px dashed #b9c7bc;border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start}
+.banco{background:#f7f9f7;margin-bottom:12px}
+.zona.sobre,.banco.sobre{background:var(--naranja-cl);border-color:var(--naranja)}
+.zonas{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.zona h5{flex:0 0 100%;margin:0;font-size:.9rem;color:var(--verde-osc)}
+.ficha{background:#fff;border:2px solid var(--verde);border-radius:999px;padding:6px 14px;cursor:grab;user-select:none;font-size:.95rem;touch-action:manipulation}
+.ficha.sel{background:var(--naranja);color:#fff;border-color:var(--naranja)}
+.ficha.ok{background:#c8e6c9;border-color:var(--ok)}
+.ficha.mal{background:#ffcdd2;border-color:var(--mal)}
+.rel{display:grid;grid-template-columns:1fr;gap:8px}
+.rel .fila{display:grid;grid-template-columns:minmax(120px,1fr) 1.6fr;gap:10px;align-items:center}
+.rel .fila>*{min-width:0}
+.rel select{width:100%}
+.rel .fila.ok select{border-color:var(--ok);background:#e8f5e9}
+.rel .fila.mal select{border-color:var(--mal);background:#ffebee}
+select{font:inherit;padding:8px 10px;border-radius:10px;border:2px solid var(--borde);background:#fff;max-width:100%}
+.barra{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--borde);padding:12px 16px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between;z-index:5;border-radius:14px 14px 0 0;box-shadow:0 -2px 8px rgba(0,0,0,.06)}
+#resultado{font-weight:700;font-size:1.05rem}
+.juego{border:0;width:100%;height:690px;border-radius:12px;background:#fff}
+.juego-wrap{border:1px solid var(--borde);border-radius:var(--radio);padding:14px;background:#fff;box-shadow:var(--sombra)}
+
+
+/* Sopa de letras */
+.sopa-box{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
+.sopa{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;width:100%;max-width:470px;flex:1 1 320px}
+.celda{aspect-ratio:1;min-width:0;border-radius:9px;border:1px solid var(--borde);background:#fff;font:inherit;font-weight:700;font-size:clamp(.78rem,3.3vw,1.1rem);color:var(--verde-osc);cursor:pointer;padding:0;transition:background .15s,transform .1s}
+.celda:hover{background:var(--verde-cl)}
+.celda.sel{background:var(--naranja);color:#fff;border-color:var(--naranja);transform:scale(1.06)}
+.celda.hallada{background:#c8e6c9;border-color:var(--ok);color:var(--verde-osc)}
+.celda.error{background:#ffcdd2;border-color:var(--mal)}
+.sopa-lado{flex:1 1 200px;min-width:0}
+.palabras{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.pal{background:var(--naranja-cl);border:2px solid #ffcc80;border-radius:999px;padding:3px 12px;font-weight:700;font-size:.9rem;letter-spacing:.04em}
+.pal.ok{background:#c8e6c9;border-color:var(--ok);text-decoration:line-through;color:var(--verde-osc)}
+#sopa-estado{font-weight:700;margin:0 0 12px}
+.juego-cab{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin-bottom:10px}
+.juego-cab h3{margin:0}
+
+footer{background:var(--verde-osc);color:#e8f5e9;padding:22px 0;font-size:.9rem}
+footer a{color:#ffcc80}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .plato{display:none}
+  .hero .wrap{flex-wrap:wrap}
+  .card{padding:16px}
+  .rel .fila{grid-template-columns:1fr}
+  .juego{height:560px}
+  [role=tab] .tab-txt{display:none}
+  [role=tab][aria-selected=true] .tab-txt{display:inline}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="emoji" aria-hidden="true">🥗</div>
+    <div>
+      <h1>Come bien, vive mejor</h1>
+      <p>WebQuest sobre la alimentación para estudiantes de 2.º grado de Bachillerato (Nivel Secundario)</p>
+      <div class="badges">
+        <span class="badge">🧪 Biología y Geología · Bachillerato</span>
+        <span class="badge">⏱️ 3 sesiones de 50 min</span>
+        <span class="badge">👥 Equipos de 3</span>
+        <span class="badge">🤖 Con IA generativa</span>
+      </div>
+    </div>
+    <div class="plato" aria-hidden="true">
+      <svg viewBox="0 0 200 200" role="img">
+        <circle cx="100" cy="100" r="96" fill="#fff"/>
+        <circle cx="100" cy="100" r="88" fill="#f3f3ee" stroke="#e0e0d6" stroke-width="2"/>
+        <path d="M100 100 L100 20 A80 80 0 0 0 100 180 Z" fill="#66bb6a"/>
+        <path d="M100 100 L100 20 A80 80 0 0 1 180 100 Z" fill="#ffb74d"/>
+        <path d="M100 100 L180 100 A80 80 0 0 1 100 180 Z" fill="#ef5350"/>
+        <g stroke="#fff" stroke-width="4"><line x1="100" y1="20" x2="100" y2="180"/><line x1="100" y1="100" x2="180" y2="100"/></g>
+        <g font-size="30" text-anchor="middle"><text x="62" y="92">🥦</text><text x="62" y="130">🍎</text><text x="142" y="68">🍚</text><text x="142" y="145">🍗</text></g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Secciones de la WebQuest">
+  <div class="wrap">
+    <div role="tablist" id="tablist">
+      <button role="tab" id="t-intro" aria-controls="p-intro" aria-selected="true"><span class="tab-ico" aria-hidden="true">🏠</span><span class="tab-txt">Introducción</span></button>
+      <button role="tab" id="t-obj" aria-controls="p-obj" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">🎯</span><span class="tab-txt">Objetivos</span></button>
+      <button role="tab" id="t-tarea" aria-controls="p-tarea" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">📋</span><span class="tab-txt">Tareas</span></button>
+      <button role="tab" id="t-proc" aria-controls="p-proc" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">🧭</span><span class="tab-txt">Proceso</span></button>
+      <button role="tab" id="t-rec" aria-controls="p-rec" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">🔗</span><span class="tab-txt">Recursos</span></button>
+      <button role="tab" id="t-eval" aria-controls="p-eval" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">✅</span><span class="tab-txt">Evaluación</span></button>
+      <button role="tab" id="t-concl" aria-controls="p-concl" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">💬</span><span class="tab-txt">Conclusiones</span></button>
+      <button role="tab" id="t-cred" aria-controls="p-cred" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">🏷️</span><span class="tab-txt">Créditos</span></button>
+      <button role="tab" id="t-quiz" aria-controls="p-quiz" aria-selected="false" tabindex="-1"><span class="tab-ico" aria-hidden="true">🎮</span><span class="tab-txt">Quiz</span></button>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- 1. INTRODUCCIÓN -->
+<section role="tabpanel" id="p-intro" aria-labelledby="t-intro" class="activo">
+  <h2>🏠 Introducción: el kiosco del centro necesita ayuda</h2>
+  <div class="grid g2">
+    <div class="card">
+      <p class="lead">Mariana y Luis, estudiantes de 2.º, notaron algo en el recreo: lo que más se vende en el kiosco del centro son <strong>refrescos, papitas empacadas y golosinas</strong>. Casi nadie compra frutas, jugos naturales o bocadillos caseros.</p>
+      <p>La dirección quiere renovar la oferta del kiosco y les pidió un favor: <strong>formar un equipo de asesores</strong> que explique a toda la escuela qué necesita comer un adolescente y cómo hacerlo con comida rica y dominicana.</p>
+      <p>¡Ese equipo eres tú! Tu misión es investigar, analizar y crear una <strong>campaña digital</strong> para convencer a tus compañeros de que comer bien también puede ser delicioso.</p>
+    </div>
+    <div class="card naranja">
+      <h3>📊 ¿Por qué importa?</h3>
+      <p>Un informe nacional citado por Fernández (2022) en Diario Libre indica que en República Dominicana:</p>
+      <div class="stat">
+        <div><b>37 %</b>de los adultos tiene obesidad</div>
+        <div><b>34 %</b>de los adultos tiene sobrepeso</div>
+      </div>
+      <p class="note">Lo que comemos hoy influye en nuestra salud mañana. Fuente: Fernández, C. (2022). Más datos en la pestaña <em>Recursos</em>.</p>
+    </div>
+  </div>
+  <div class="card verde" style="margin-top:16px">
+    <h3>🚀 Qué vas a hacer</h3>
+    <ul>
+      <li><strong>Sesión 1 · Investigar:</strong> descubrir qué nutrientes necesita tu cuerpo, con un vídeo, la OMS, Harvard y una pregunta a la IA.</li>
+      <li><strong>Sesión 2 · Analizar:</strong> comparar lo que comes con un plato saludable, leer datos de tu país y explorar cómo cambió la comida dominicana.</li>
+      <li><strong>Sesión 3 · Crear:</strong> diseñar en equipo una infografía digital con tu propuesta para el kiosco y presentarla en 3 minutos.</li>
+    </ul>
+    <p style="margin:8px 0 0"><strong>Cómo avanzar:</strong> recorre las pestañas en orden. En <em>Tareas</em> verás las preguntas y el producto final; en <em>Proceso</em>, los pasos de cada sesión; en <em>Recursos</em>, todo el material que necesitas; y en <em>Evaluación</em>, cómo se calificará. Trabajarás en equipos de 3, con roles distintos.</p>
+  </div>
+</section>
+
+<!-- 2. OBJETIVOS -->
+<section role="tabpanel" id="p-obj" aria-labelledby="t-obj">
+  <h2>🎯 Objetivos de aprendizaje</h2>
+  <p class="lead">Al terminar esta WebQuest serás capaz de:</p>
+  <div class="stack">
+    <div class="card obj"><div class="n">1</div><div>
+      <strong>Identificar los grupos de nutrientes</strong> (carbohidratos, proteínas, grasas, vitaminas, minerales y agua) y explicar la función de cada uno, relacionando al menos seis alimentos con su aporte principal.
+      <div><span class="chip">Científica y Tecnológica</span><span class="chip">Ambiental y de la Salud</span></div></div></div>
+    <div class="card obj"><div class="n">2</div><div>
+      <strong>Evaluar una dieta de un día</strong> comparándola con El Plato para Comer Saludable y las recomendaciones de la OMS, y proponer al menos tres mejoras concretas.
+      <div><span class="chip">Pensamiento lógico, creativo y crítico</span><span class="chip">Ambiental y de la Salud</span></div></div></div>
+    <div class="card obj"><div class="n">3</div><div>
+      <strong>Explicar con evidencia al menos dos cambios históricos</strong> de la alimentación dominicana, apoyándote en dos o más fuentes.
+      <div><span class="chip">Comunicativa</span><span class="chip">Pensamiento lógico, creativo y crítico</span></div></div></div>
+    <div class="card obj"><div class="n">4</div><div>
+      <strong>Crear en equipo una campaña digital</strong> (infografía o presentación) con información precisa, diseño claro y citas en formato APA.
+      <div><span class="chip">Comunicativa</span><span class="chip">Científica y Tecnológica</span></div></div></div>
+    <div class="card obj"><div class="n">5</div><div>
+      <strong>Usar herramientas web 2.0 e inteligencia artificial generativa de forma crítica y ética</strong>, verificando siempre lo que dice la IA con fuentes confiables.
+      <div><span class="chip">Científica y Tecnológica</span><span class="chip">Ética y Ciudadana</span></div></div></div>
+  </div>
+  <h3 style="margin-top:26px">📚 Contenidos que se trabajan</h3>
+  <div class="grid g3">
+    <div class="card verde"><h3>🧠 Conceptos</h3>
+      <ul>
+        <li>Nutrientes y su función en el organismo</li>
+        <li>Alimentación equilibrada y plato saludable</li>
+        <li>Recomendaciones de la OMS (azúcares, grasas, frutas y verduras)</li>
+        <li>Ultraprocesados y salud</li>
+        <li>La alimentación dominicana a través de la historia</li>
+      </ul></div>
+    <div class="card naranja"><h3>🛠️ Procedimientos</h3>
+      <ul>
+        <li>Búsqueda y lectura de fuentes confiables</li>
+        <li>Análisis de un diario de comidas</li>
+        <li>Diseño de una infografía digital</li>
+        <li>Citación de fuentes en APA</li>
+        <li>Uso de IA con verificación de datos</li>
+      </ul></div>
+    <div class="card azul"><h3>💚 Actitudes y valores</h3>
+      <ul>
+        <li>Hábitos de alimentación saludable</li>
+        <li>Trabajo cooperativo y respeto</li>
+        <li>Honestidad académica</li>
+        <li>Uso ético y responsable de la IA</li>
+        <li>Valoración de la cocina dominicana</li>
+      </ul></div>
+  </div>
+</section>
+
+<!-- 3. TAREA -->
+<section role="tabpanel" id="p-tarea" aria-labelledby="t-tarea">
+  <h2>📋 Tareas: la campaña «Come bien, vive mejor»</h2>
+  <div class="card verde">
+    <h3>❓ Preguntas que debe resolver tu equipo</h3>
+    <ol>
+      <li>¿Qué nutrientes necesita mi cuerpo y para qué sirve cada uno?</li>
+      <li>¿Cómo se compara lo que como en un día con un plato saludable?</li>
+      <li>¿Cómo ha cambiado la alimentación dominicana desde nuestras raíces taínas, africanas y españolas hasta hoy?</li>
+      <li>¿Cómo puedo convencer a mis compañeros de comer mejor sin que suene a regaño?</li>
+    </ol>
+  </div>
+  <h3 style="margin-top:22px">🗓️ Una tarea por sesión (50 min cada una)</h3>
+  <div class="grid g3">
+    <div class="card dia"><h3>Tarea 1 · Investigar</h3><p>Resuelven la pregunta 1.</p><p><strong>Resultado:</strong> cuadro de nutrientes con su función y tres alimentos dominicanos de cada uno.</p></div>
+    <div class="card dia"><h3>Tarea 2 · Analizar</h3><p>Resuelven las preguntas 2 y 3.</p><p><strong>Resultado:</strong> diario de comidas comparado con el plato saludable, dos cambios históricos y un menú de un día.</p></div>
+    <div class="card dia"><h3>Tarea 3 · Crear</h3><p>Resuelven la pregunta 4.</p><p><strong>Resultado:</strong> infografía digital y presentación de 3 minutos (producto final).</p></div>
+  </div>
+  <div class="card" style="margin-top:16px">
+    <h3>🎁 Producto final (formato digital)</h3>
+  <p>Cada equipo creará <strong>una infografía digital</strong> (o una presentación de 6 a 8 diapositivas) hecha con Canva, Genially, Google Slides o una herramienta similar, y la presentará en <strong>3 minutos</strong>. Debe incluir:</p>
+    <ol>
+      <li><strong>El problema:</strong> qué pasa con la alimentación en el kiosco y en la comunidad, con al menos dos datos y su fuente.</li>
+      <li><strong>Los nutrientes:</strong> un cuadro sencillo con la función de cada uno y ejemplos de alimentos dominicanos.</li>
+      <li><strong>Mi plato saludable:</strong> un plato adaptado a la comida dominicana (por ejemplo, arroz, habichuelas, proteína, ensalada y fruta).</li>
+      <li><strong>Un menú de un día</strong> (desayuno, almuerzo, merienda y cena) y <strong>una propuesta para el kiosco</strong>.</li>
+      <li><strong>Una mini línea de tiempo</strong> con dos cambios históricos de la alimentación dominicana.</li>
+      <li><strong>Tres mensajes clave</strong> breves y atractivos para tus compañeros.</li>
+      <li><strong>Referencias en APA.</strong></li>
+    </ol>
+  </div>
+  <h3 style="margin-top:22px">👥 Roles del equipo (3 integrantes)</h3>
+  <div class="grid g3">
+    <div class="card rol verde"><div class="big" aria-hidden="true">🔎</div><h3>Investigador/a</h3>
+      <p>Busca y lee las fuentes, registra los datos y verifica lo que sugiere la IA. Es responsable de la <strong>precisión</strong>.</p></div>
+    <div class="card rol naranja"><div class="big" aria-hidden="true">🎨</div><h3>Diseñador/a</h3>
+      <p>Elige colores, tipografía e imágenes, y arma la infografía. Es responsable de que sea <strong>clara y atractiva</strong>.</p></div>
+    <div class="card rol azul"><div class="big" aria-hidden="true">✍️</div><h3>Redactor/a</h3>
+      <p>Escribe textos breves, organiza las referencias en APA y prepara la presentación. Es responsable del <strong>mensaje</strong>.</p></div>
+  </div>
+  <p class="note" style="margin-top:8px">En cada sesión rotan una tarea pequeña para que todos practiquen. Las decisiones se toman entre los tres.</p>
+  <div class="card" style="margin-top:16px">
+    <h3>✅ Criterios de éxito (marca los que ya cumples)</h3>
+    <ul class="check">
+      <li><label><input type="checkbox"> El problema está explicado con al menos dos datos reales y su fuente.</label></li>
+      <li><label><input type="checkbox"> La información sobre nutrientes coincide con la OMS y Harvard.</label></li>
+      <li><label><input type="checkbox"> Incluye dos cambios históricos de la alimentación dominicana con evidencia.</label></li>
+      <li><label><input type="checkbox"> Los tres roles trabajaron y quedó registro en el documento compartido.</label></li>
+      <li><label><input type="checkbox"> El diseño es legible: textos breves, buen contraste e imágenes con créditos.</label></li>
+      <li><label><input type="checkbox"> Todas las fuentes (también la IA) están citadas en APA.</label></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4. PROCESO -->
+<section role="tabpanel" id="p-proc" aria-labelledby="t-proc">
+  <h2>🧭 Proceso: tres sesiones paso a paso</h2>
+  <div class="stack">
+    <div class="card dia">
+      <h3>Sesión 1 · Investigamos (50 min)</h3>
+      <ol class="pasos">
+        <li><strong>Formen el equipo y asignen roles</strong> (5 min). Creen un documento compartido en Google Docs o un muro en Padlet donde guardarán todo.</li>
+        <li><strong>Vean el vídeo</strong> de Smile and Learn (2021) y anoten en el documento un dato nuevo por persona (10 min).</li>
+        <li><strong>Lean la ficha de la OMS</strong> (2026) y la página del Plato Saludable de Harvard (2025). El/la investigador/a subraya las recomendaciones clave (15 min).</li>
+        <li><strong>Completen un cuadro de nutrientes:</strong> nutriente, función, tres alimentos dominicanos que lo aportan (10 min).</li>
+        <li><strong>Pregunta a la IA</strong> (10 min). Escriban un prompt como: <em>«Explícame con ejemplos dominicanos para un estudiante de 13 años qué hacen las proteínas, los carbohidratos y las grasas»</em>. Comparen la respuesta con la OMS y Harvard y anoten <strong>una cosa correcta y una dudosa o imprecisa</strong>.</li>
+      </ol>
+    </div>
+    <div class="card dia">
+      <h3>Sesión 2 · Analizamos (50 min)</h3>
+      <ol class="pasos">
+        <li><strong>Diario de comidas</strong> (10 min). Cada persona anota qué comió ayer. Pongan los tres diarios en una tabla compartida.</li>
+        <li><strong>Comparen con el Plato Saludable</strong> (10 min). ¿Cuánto ocupan las verduras y frutas? ¿Cuántos refrescos o ultraprocesados hay? Escriban tres mejoras.</li>
+        <li><strong>Lean el artículo de Diario Libre</strong> (2022) y escriban en una frase cómo se relacionan sus datos con el kiosco (10 min).</li>
+        <li><strong>Mini investigación histórica</strong> (10 min). Lean el artículo de De Oleo Ramos (2025) y anoten qué aportaron las culturas taína, española y africana a la comida dominicana. Elijan <strong>dos cambios</strong> y registren la fuente.</li>
+        <li><strong>Diseñen el menú y el plato</strong> (10 min). Pueden pedir ideas a la IA («dame 5 meriendas saludables con ingredientes comunes en República Dominicana»), pero el equipo decide y verifica.</li>
+      </ol>
+    </div>
+    <div class="card dia">
+      <h3>Sesión 3 · Creamos y compartimos (50 min)</h3>
+      <ol class="pasos">
+        <li><strong>Redacten los textos breves</strong> (10 min): tres mensajes clave y un título que llame la atención.</li>
+        <li><strong>Diseñen la infografía</strong> en Canva, Genially o Google Slides (20 min). Usen pocos colores, letra grande y mucho espacio en blanco. Citen la fuente de cada imagen.</li>
+        <li><strong>Armen las referencias en APA</strong> (5 min) con ayuda de la guía de Moreno y Carrillo (2020), incluyendo la IA que usaron (nombre de la herramienta, fecha y el prompt).</li>
+        <li><strong>Autoevalúen su trabajo con la rúbrica</strong> (5 min) y hagan un ajuste final.</li>
+        <li><strong>Presentación de 3 minutos</strong> y comentarios de otro equipo (10 min). Si hay muchos equipos, las últimas presentaciones pasan a la siguiente clase.</li>
+      </ol>
+      <p class="note" style="margin:8px 0 0">El quiz es individual y se resuelve al terminar la sesión 3 (en casa o al inicio de la siguiente clase).</p>
+    </div>
+    <div class="card azul">
+      <h3>🤖 Reglas para usar la IA generativa</h3>
+      <ul>
+        <li>La IA es un <strong>asistente</strong>, no la autora: tu equipo piensa, decide y firma.</li>
+        <li><strong>Verifica siempre</strong> sus datos con una fuente confiable.</li>
+        <li><strong>No compartas datos personales</strong> (nombre completo, dirección, fotos).</li>
+        <li><strong>Cita</strong> qué herramienta usaste y para qué.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 5. RECURSOS -->
+<section role="tabpanel" id="p-rec" aria-labelledby="t-rec">
+  <h2>🔗 Recursos</h2>
+  <p>Aquí está todo lo que tu equipo necesita para resolver las tareas. Todas las fuentes están en español.</p>
+  <div class="grid g2 rec">
+    <article class="card">
+      <span class="tipo">📄 Informe oficial</span>
+      <h3>Alimentación saludable</h3>
+      <p>Ficha de la Organización Mundial de la Salud con las recomendaciones sobre frutas y verduras, azúcares, grasas y sal.</p>
+      <p class="apa">Organización Mundial de la Salud. (2026). <em>Alimentación saludable</em>. <a href="https://www.who.int/es/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">https://www.who.int/es/news-room/fact-sheets/detail/healthy-diet</a></p>
+      <a class="btn" href="https://www.who.int/es/news-room/fact-sheets/detail/healthy-diet" target="_blank" rel="noopener">Abrir recurso ↗</a>
+    </article>
+    <article class="card">
+      <span class="tipo">🎓 Artículo académico</span>
+      <h3>El Plato para Comer Saludable</h3>
+      <p>Guía visual de la Escuela de Salud Pública T.H. Chan de Harvard para armar un plato equilibrado.</p>
+      <p class="apa">Harvard T.H. Chan School of Public Health. (2025). <em>El plato para comer saludable</em>. The Nutrition Source. <a href="https://nutritionsource.hsph.harvard.edu/healthy-%20eating-plate/translations/spanish/" target="_blank" rel="noopener">https://nutritionsource.hsph.harvard.edu/healthy-%20eating-plate/translations/spanish/</a></p>
+      <a class="btn" href="https://nutritionsource.hsph.harvard.edu/healthy-%20eating-plate/translations/spanish/" target="_blank" rel="noopener">Abrir recurso ↗</a>
+    </article>
+    <article class="card">
+      <span class="tipo">📰 Artículo con datos nacionales</span>
+      <h3>Malnutrición eleva índices de anemia, sobrepeso y obesidad</h3>
+      <p>Reportaje que resume cifras de República Dominicana. Es una fuente periodística: compara sus datos con las fuentes oficiales.</p>
+      <p class="apa">Fernández, C. (2022, 31 de mayo). Malnutrición eleva índices de anemia, sobrepeso y obesidad en República Dominicana. <em>Diario Libre</em>. <a href="https://diariolibre.com/actualidad/salud/2022/05/30/malnutricion-eleva-indices-de-anemia-sobrepeso-y-obesidad/1860622" target="_blank" rel="noopener">https://diariolibre.com/actualidad/salud/2022/05/30/malnutricion-eleva-indices-de-anemia-sobrepeso-y-obesidad/1860622</a></p>
+      <a class="btn" href="https://diariolibre.com/actualidad/salud/2022/05/30/malnutricion-eleva-indices-de-anemia-sobrepeso-y-obesidad/1860622" target="_blank" rel="noopener">Abrir recurso ↗</a>
+    </article>
+    <article class="card">
+      <span class="tipo">🎬 Vídeo</span>
+      <h3>Alimentación saludable para niños</h3>
+      <p>Vídeo educativo que explica los nutrientes, qué alimentos los aportan y consejos para comer bien.</p>
+      <p class="apa">Smile and Learn - Español. (2021, 23 de febrero). <em>Alimentación saludable para niños - Hidratos de carbono, grasas, proteínas, vitaminas...</em> [Vídeo]. YouTube. <a href="https://www.youtube.com/watch?v=Wr0_wULJnBE" target="_blank" rel="noopener">https://www.youtube.com/watch?v=Wr0_wULJnBE</a></p>
+      <a class="btn" href="https://www.youtube.com/watch?v=Wr0_wULJnBE" target="_blank" rel="noopener">Ver vídeo ↗</a>
+    </article>
+    <article class="card">
+      <span class="tipo">🏛️ Artículo cultural</span>
+      <h3>Comer es conocer: la alimentación y la gastronomía en República Dominicana</h3>
+      <p>Resume qué aportaron las culturas taína, española y africana a la mesa dominicana. Te servirá para la pregunta 3.</p>
+      <p class="apa">De Oleo Ramos, J. (2025, 29 de junio). Comer es conocer: miradas desde las ciencias sociales a la alimentación y la gastronomía en la República Dominicana. <em>Acento</em>. <a href="https://acento.com.do/cultura/comer-es-conocer-miradas-desde-las-ciencias-sociales-a-la-alimentacion-y-la-gastronomia-en-la-republica-dominicana-9516747.html" target="_blank" rel="noopener">https://acento.com.do/cultura/comer-es-conocer-miradas-desde-las-ciencias-sociales-a-la-alimentacion-y-la-gastronomia-en-la-republica-dominicana-9516747.html</a></p>
+      <a class="btn" href="https://acento.com.do/cultura/comer-es-conocer-miradas-desde-las-ciencias-sociales-a-la-alimentacion-y-la-gastronomia-en-la-republica-dominicana-9516747.html" target="_blank" rel="noopener">Abrir recurso ↗</a>
+    </article>
+    <article class="card">
+      <span class="tipo">🎓 Guía universitaria</span>
+      <h3>Normas APA 7.ª edición: guía de citación y referenciación</h3>
+      <p>Explica cómo citar en el texto y cómo armar la lista de referencias, con ejemplos en español.</p>
+      <p class="apa">Moreno, D., y Carrillo, J. (2020). <em>Normas APA 7.ª edición: Guía de citación y referenciación</em> (2.ª versión revisada y ampliada). Universidad Central, Coordinación Editorial, CRAI. <a href="https://educacion.usal.es/wp-content/uploads/sites/45/2020/11/guia-normas-apa-7-ed-2020-08-12-2.pdf" target="_blank" rel="noopener">https://educacion.usal.es/wp-content/uploads/sites/45/2020/11/guia-normas-apa-7-ed-2020-08-12-2.pdf</a></p>
+      <a class="btn" href="https://educacion.usal.es/wp-content/uploads/sites/45/2020/11/guia-normas-apa-7-ed-2020-08-12-2.pdf" target="_blank" rel="noopener">Abrir recurso ↗</a>
+    </article>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <article class="card verde">
+      <h3>🧰 Herramientas web 2.0 sugeridas</h3>
+      <ul>
+        <li><strong>Google Docs / Google Sheets:</strong> notas y tablas compartidas.</li>
+        <li><strong><a href="https://padlet.com/" target="_blank" rel="noopener">Padlet</a>:</strong> muro colaborativo de ideas.</li>
+        <li><strong><a href="https://www.canva.com/es_es/" target="_blank" rel="noopener">Canva</a>, Genially o Google Slides:</strong> diseño de la infografía.</li>
+        <li><strong>Un asistente de IA generativa</strong> (por ejemplo, Claude, ChatGPT o Gemini) para lluvia de ideas, siguiendo las reglas del Proceso.</li>
+      </ul>
+    </article>
+    <article class="card naranja">
+      <h3>🔤 Para practicar</h3>
+      <p>Después de investigar, juega a encontrar el vocabulario en la sopa de letras de la pestaña <em>Quiz</em>.</p>
+      <p class="apa">Batista, J. (s. f.). <em>Receta y alimentación sana (D)</em> [Juego]. Educaplay. <a href="https://es.educaplay.com/recursos-educativos/14104477-receta_y_alimentacion_sana.html" target="_blank" rel="noopener">https://es.educaplay.com/recursos-educativos/14104477-receta_y_alimentacion_sana.html</a></p>
+    </article>
+  </div>
+</section>
+
+<!-- 6. EVALUACIÓN -->
+<section role="tabpanel" id="p-eval" aria-labelledby="t-eval">
+  <h2>✅ Evaluación: rúbrica analítica</h2>
+  <p>Cada criterio vale de 1 a 4 puntos (Excelente = 4, Bueno = 3, Suficiente = 2, Insuficiente = 1). Total: <strong>20 puntos</strong>. En móvil, desliza la tabla hacia los lados.</p>
+  <div class="tabla-wrap" tabindex="0" aria-label="Rúbrica de evaluación, desplazable">
+    <table class="rub">
+      <thead>
+        <tr><th scope="col">Criterio</th><th scope="col">Excelente (4)</th><th scope="col">Bueno (3)</th><th scope="col">Suficiente (2)</th><th scope="col">Insuficiente (1)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1. Contextualización del problema<small>Conecta la campaña con la vida real</small></th>
+          <td>Explica con claridad el problema del kiosco, lo relaciona con la comunidad dominicana e incluye al menos dos datos reales con su fuente.</td>
+          <td>Explica el problema y lo relaciona con la comunidad, pero incluye solo un dato con fuente o la conexión es muy general.</td>
+          <td>Menciona el problema de forma superficial. Los datos son escasos o no tienen fuente.</td>
+          <td>No se entiende el problema o no se relaciona con la alimentación de los adolescentes.</td>
+        </tr>
+        <tr>
+          <th scope="row">2. Precisión histórica y científica<small>Datos correctos y contexto histórico</small></th>
+          <td>La información sobre nutrientes es correcta y coincide con la OMS y Harvard. Explica dos o más cambios históricos de la alimentación dominicana con evidencia.</td>
+          <td>La información es correcta, con una o dos imprecisiones menores. Explica un cambio histórico con evidencia.</td>
+          <td>Hay varias imprecisiones, o la parte histórica es muy general y sin evidencia.</td>
+          <td>Contiene errores importantes o no incluye contenido científico ni histórico.</td>
+        </tr>
+        <tr>
+          <th scope="row">3. Colaboración<small>Roles, aportes y decisiones</small></th>
+          <td>Los tres roles se cumplen, todos aportan en cada sesión, las decisiones son consensuadas y el trabajo queda registrado en el documento compartido.</td>
+          <td>Los roles se cumplen en general. Los aportes son algo desiguales y el registro es parcial.</td>
+          <td>Una persona hace la mayor parte del trabajo. Los roles están poco claros.</td>
+          <td>No hay trabajo en equipo evidente o los roles no se cumplen.</td>
+        </tr>
+        <tr>
+          <th scope="row">4. Diseño visual<small>Claridad y atractivo</small></th>
+          <td>Ordenado, con jerarquía clara, buen contraste, imágenes pertinentes con créditos y textos breves y legibles.</td>
+          <td>Buen orden y legibilidad, con detalles por mejorar (exceso de texto, contraste o imágenes sin créditos).</td>
+          <td>La información está desordenada o es difícil de leer. Usa pocos elementos visuales.</td>
+          <td>El diseño es confuso, ilegible o está incompleto.</td>
+        </tr>
+        <tr>
+          <th scope="row">5. Citación APA<small>Fuentes y referencias</small></th>
+          <td>Todas las fuentes (incluidas imágenes y herramientas de IA) están citadas en el texto y en la lista de referencias en formato APA, sin errores.</td>
+          <td>Cita todas las fuentes con uno o dos errores de formato.</td>
+          <td>Cita solo algunas fuentes o comete varios errores de formato.</td>
+          <td>No cita fuentes o copia información sin atribuirla.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card verde" style="margin-top:16px">
+    <h3>🧾 Tipo e instrumentos de evaluación</h3>
+    <ul>
+      <li><strong>Formativa:</strong> observación de la docente durante las tres sesiones y autoevaluación del equipo con la rúbrica y la lista de criterios de éxito (pestaña <em>Tareas</em>).</li>
+      <li><strong>Sumativa:</strong> rúbrica analítica aplicada a la infografía y a la presentación (producto final).</li>
+      <li><strong>Coevaluación:</strong> comentarios de otro equipo después de la presentación.</li>
+      <li><strong>Individual:</strong> quiz autocorregible, al terminar la tercera sesión (en casa o al inicio de la siguiente clase).</li>
+    </ul>
+    <p style="margin:8px 0 0"><strong>Instrumentos:</strong> rúbrica analítica, lista de verificación y quiz. <strong>Criterios de evaluación:</strong> los cinco de la rúbrica (contextualización del problema, precisión histórica y científica, colaboración, diseño visual y citación APA).</p>
+  </div>
+  <div class="card azul" style="margin-top:16px">
+    <h3>🔍 Autoevaluación del equipo</h3>
+    <p>Antes de entregar, lean cada fila de la rúbrica y respondan: <em>¿en qué nivel estamos y qué haríamos para subir uno?</em> Anótenlo en su documento compartido.</p>
+  </div>
+</section>
+
+<!-- 7. CONCLUSIONES -->
+<section role="tabpanel" id="p-concl" aria-labelledby="t-concl">
+  <h2>💬 Conclusiones: lo que aprendimos y cómo lo vivimos</h2>
+  <div class="card">
+    <p class="lead">Han investigado, analizado y creado una campaña. Ahora piensen en cómo les fue y conecten lo aprendido con lo que pasa hoy a su alrededor.</p>
+    <p style="margin:0"><strong>Reflexión colaborativa (15 min):</strong> conversen en equipo y escriban en el muro compartido una respuesta de 2 a 3 frases por cada reflexión.</p>
+  </div>
+  <h3 style="margin-top:22px">Tres reflexiones sobre la experiencia</h3>
+  <div class="grid g3">
+    <div class="card verde"><h3>1️⃣ Lo que aprendí</h3><p>¿Qué aprendiste sobre alimentación y qué te ayudó más a entenderlo: el vídeo, las lecturas, la IA o el trabajo en equipo?</p></div>
+    <div class="card naranja"><h3>2️⃣ Lo que me costó</h3><p>¿Qué fue difícil (verificar los datos de la IA, ponerse de acuerdo, diseñar) y cómo lo resolvieron?</p></div>
+    <div class="card azul"><h3>3️⃣ Lo que cambiaría</h3><p>Si repitieran esta WebQuest, ¿qué harían distinto para que su campaña llegue mejor a sus compañeros?</p></div>
+  </div>
+  <h3 style="margin-top:22px">Conexión con situaciones actuales</h3>
+  <div class="grid g2">
+    <div class="card"><h3>🛒 Hoy en la comunidad</h3><p>¿Qué alimentos son más fáciles de conseguir cerca de tu casa o escuela: los saludables o los ultraprocesados? ¿Qué podría cambiar?</p></div>
+    <div class="card"><h3>📣 Publicidad y decisiones</h3><p>¿Cómo influyen los anuncios y las redes sociales en lo que pides en el kiosco? ¿Qué cambio pequeño harás esta semana y cómo comprobarás que lo cumpliste?</p></div>
+  </div>
+  <div class="card verde" style="margin-top:16px">
+    <p style="margin:0"><strong>Cierre:</strong> cada equipo comparte su mensaje clave favorito. La clase vota cuál se pondrá como cartel en el kiosco. 🏆</p>
+  </div>
+</section>
+
+<!-- CRÉDITOS -->
+<section role="tabpanel" id="p-cred" aria-labelledby="t-cred">
+  <h2>🏷️ Créditos</h2>
+  <div class="card">
+    <h3>📚 Sitios y materiales consultados</h3>
+    <p class="apa">Anthropic. (2026). <em>Claude</em> [Modelo de lenguaje de gran tamaño]. https://claude.ai</p>
+    <p class="apa">Batista, J. (s. f.). <em>Receta y alimentación sana (D)</em> [Juego]. Educaplay. https://es.educaplay.com/recursos-educativos/14104477-receta_y_alimentacion_sana.html</p>
+    <p class="apa">De Oleo Ramos, J. (2025, 29 de junio). Comer es conocer: miradas desde las ciencias sociales a la alimentación y la gastronomía en la República Dominicana. <em>Acento</em>. https://acento.com.do/cultura/comer-es-conocer-miradas-desde-las-ciencias-sociales-a-la-alimentacion-y-la-gastronomia-en-la-republica-dominicana-9516747.html</p>
+    <p class="apa">Fernández, C. (2022, 31 de mayo). Malnutrición eleva índices de anemia, sobrepeso y obesidad en República Dominicana. <em>Diario Libre</em>. https://diariolibre.com/actualidad/salud/2022/05/30/malnutricion-eleva-indices-de-anemia-sobrepeso-y-obesidad/1860622</p>
+    <p class="apa">Harvard T.H. Chan School of Public Health. (2025). <em>El plato para comer saludable</em>. The Nutrition Source. https://nutritionsource.hsph.harvard.edu/healthy-%20eating-plate/translations/spanish/</p>
+    <p class="apa">Moreno, D., y Carrillo, J. (2020). <em>Normas APA 7.ª edición: Guía de citación y referenciación</em> (2.ª versión revisada y ampliada). Universidad Central, Coordinación Editorial, CRAI. https://educacion.usal.es/wp-content/uploads/sites/45/2020/11/guia-normas-apa-7-ed-2020-08-12-2.pdf</p>
+    <p class="apa">Organización Mundial de la Salud. (2026). <em>Alimentación saludable</em>. https://www.who.int/es/news-room/fact-sheets/detail/healthy-diet</p>
+    <p class="apa">Smile and Learn - Español. (2021, 23 de febrero). <em>Alimentación saludable para niños - Hidratos de carbono, grasas, proteínas, vitaminas...</em> [Vídeo]. YouTube. https://www.youtube.com/watch?v=Wr0_wULJnBE</p>
+  </div>
+  <div class="grid g2" style="margin-top:16px">
+    <div class="card azul">
+      <h3>🤖 Uso de IA</h3>
+      <p style="margin:0">Claude (Anthropic, 2026) se usó como apoyo en el diseño y la redacción de esta WebQuest. Los datos se contrastaron con las fuentes de esta lista.</p>
+    </div>
+    <div class="card verde">
+      <h3>🖼️ Imágenes e iconos</h3>
+      <p style="margin:0">Los iconos de esta página son emojis del sistema. Cualquier imagen que los equipos añadan a su infografía debe citarse con su autor, año y enlace.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 8. QUIZ -->
+<section role="tabpanel" id="p-quiz" aria-labelledby="t-quiz">
+  <h2>🎮 Quiz interactivo</h2>
+  <p>9 preguntas: 3 de selección múltiple, 2 de verdadero o falso, 2 de arrastrar y soltar y 2 de relacionar columnas. Al terminar, pulsa <strong>Corregir</strong>. En el móvil, toca una ficha y luego toca la zona donde va.</p>
+  <div id="quiz"></div>
+  <div class="barra">
+    <div id="resultado" role="status" aria-live="polite">Responde y pulsa «Corregir».</div>
+    <div>
+      <button class="btn" id="btn-corregir" type="button">Corregir</button>
+      <button class="btn sec" id="btn-reiniciar" type="button">Reiniciar</button>
+    </div>
+  </div>
+
+  <h3 style="margin-top:30px">🔤 Juegos: receta y alimentación sana</h3>
+  <div class="card">
+    <h3>Sopa de letras: alimentación sana</h3>
+    <p>Encuentra las 10 palabras. <strong>Toca la primera letra y luego la última</strong> de cada palabra. Pueden ir en horizontal, vertical o diagonal (hacia la derecha o hacia abajo) y van sin tildes.</p>
+    <div class="sopa-box">
+      <div id="sopa" class="sopa" role="group" aria-label="Sopa de letras"></div>
+      <div class="sopa-lado">
+        <div id="palabras" class="palabras" aria-label="Palabras por encontrar"></div>
+        <p id="sopa-estado" role="status" aria-live="polite"></p>
+        <button class="btn sec" id="btn-sopa" type="button">Reiniciar sopa</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="juego-wrap" style="margin-top:16px">
+    <div class="juego-cab">
+      <h3>🎮 Juego de Educaplay</h3>
+      <a class="btn" href="https://es.educaplay.com/recursos-educativos/14104477-receta_y_alimentacion_sana.html" target="_blank" rel="noopener">Abrir el juego en otra pestaña ↗</a>
+    </div>
+    <iframe class="juego" title="Juego de Educaplay: Receta y alimentación sana" allow="fullscreen; autoplay; allow-top-navigation-by-user-activation" allowfullscreen src="https://es.educaplay.com/juego/14104477-receta_y_alimentacion_sana.html"></iframe>
+    <p class="note" style="margin:10px 0 0">Si el cuadro aparece vacío, tu navegador o la plataforma donde abres esta página bloquea los juegos incrustados. Usa el botón de arriba o la sopa de letras. Juego de Batista (s. f.).</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <strong>Come bien, vive mejor</strong> · WebQuest de Biología y Geología · Bachillerato.
+    <p class="note" style="color:#c8e6c9;margin:6px 0 0">Las referencias completas están en la pestaña <em>Créditos</em>.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Pestañas ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role=tab]'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('[role=tabpanel]'));
+
+  function activar(tab, enfocar){
+    tabs.forEach(function(t){
+      var sel = (t === tab);
+      t.setAttribute('aria-selected', sel ? 'true' : 'false');
+      t.tabIndex = sel ? 0 : -1;
+    });
+    panels.forEach(function(p){
+      p.classList.toggle('activo', p.id === tab.getAttribute('aria-controls'));
+    });
+    if (enfocar) tab.focus();
+    tab.scrollIntoView({block:'nearest', inline:'center'});
+    try { history.replaceState(null, '', '#' + tab.id); } catch(e) {}
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ activar(t, false); window.scrollTo({top:0, behavior:'smooth'}); });
+    t.addEventListener('keydown', function(e){
+      var k = e.key, n = null;
+      if (k === 'ArrowRight') n = tabs[(i + 1) % tabs.length];
+      else if (k === 'ArrowLeft') n = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (k === 'Home') n = tabs[0];
+      else if (k === 'End') n = tabs[tabs.length - 1];
+      if (n){ e.preventDefault(); activar(n, true); }
+    });
+  });
+  var inicial = tabs.filter(function(t){ return ('#' + t.id) === location.hash; })[0];
+  if (inicial) activar(inicial, false);
+
+  /* ---------- Datos del quiz ---------- */
+  var MCQ = [
+    {q:'Según la OMS, ¿qué porcentaje máximo de la energía diaria deberían aportar los azúcares libres?',
+     o:['Menos del 10 %','Entre 30 y 40 %','Más del 50 %','No existe ningún límite'], a:0,
+     why:'La OMS recomienda limitar los azúcares libres a menos del 10 % de la energía diaria (idealmente menos del 5 %).'},
+    {q:'En El Plato para Comer Saludable de Harvard, ¿qué debe ocupar la mitad del plato?',
+     o:['Carnes rojas y embutidos','Verduras y frutas','Pan, pasta y arroz','Frituras'], a:1,
+     why:'La mitad del plato son verduras y frutas, con variedad de colores. Un cuarto son granos integrales y otro cuarto, proteínas saludables.'},
+    {q:'¿Qué nutrientes construyen y reparan los tejidos del cuerpo, como los músculos?',
+     o:['Los azúcares','La sal','Las proteínas','El agua'], a:2,
+     why:'Las proteínas construyen y reparan tejidos. Las encuentras en huevos, pollo, pescado, habichuelas y lácteos.'}
+  ];
+  var VF = [
+    {q:'La OMS recomienda que los adultos coman al menos 400 g de frutas y verduras al día.', a:true,
+     why:'Verdadero. Esa es la recomendación de la OMS (2026) para los adultos.'},
+    {q:'Todas las grasas son malas y hay que eliminarlas por completo de la dieta.', a:false,
+     why:'Falso. El cuerpo necesita grasas. Lo recomendable es limitar el total y evitar las grasas trans industriales, prefiriendo aceites vegetales saludables.'}
+  ];
+  var DND = [
+    {q:'Arrastra cada alimento a su función principal en el cuerpo.',
+     zonas:['Energéticos','Constructores','Reguladores'],
+     items:[['Arroz',0],['Yuca',0],['Pollo',1],['Huevo',1],['Mango',2],['Lechuga',2]],
+     why:'Energéticos: arroz y yuca. Constructores (proteínas): pollo y huevo. Reguladores (vitaminas y minerales): mango y lechuga.'},
+    {q:'Clasifica estos alimentos según cada cuánto conviene comerlos.',
+     zonas:['Todos los días','Solo de vez en cuando'],
+     items:[['Agua',0],['Ensalada',0],['Naranja',0],['Refresco',1],['Papitas empacadas',1],['Golosinas',1]],
+     why:'Agua, ensalada y naranja pueden estar en tu día a día. Refrescos, papitas empacadas y golosinas son ultraprocesados con mucha azúcar, sal o grasa: mejor ocasionales.'}
+  ];
+  var REL = [
+    {q:'Relaciona cada nutriente con su función.',
+     pares:[['Proteínas','Construyen y reparan tejidos'],['Carbohidratos','Dan energía'],['Vitaminas y minerales','Regulan procesos del cuerpo'],['Agua','Transporta nutrientes y mantiene la temperatura']],
+     why:'Proteínas: construyen. Carbohidratos: energía. Vitaminas y minerales: regulan. Agua: transporta y regula la temperatura.'},
+    {q:'Relaciona cada alimento con lo que destaca en su aporte.',
+     pares:[['Naranja','Vitamina C'],['Leche','Calcio'],['Aguacate','Grasas saludables'],['Habichuelas','Proteínas y fibra']],
+     why:'Naranja: vitamina C. Leche: calcio. Aguacate: grasas saludables. Habichuelas: proteínas vegetales y fibra.'}
+  ];
+
+  /* ---------- Utilidades ---------- */
+  function el(tag, cls, html){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (html !== undefined) e.innerHTML = html;
+    return e;
+  }
+  function mezclar(arr){
+    var a = arr.slice(), i, j, t;
+    for (i = a.length - 1; i > 0; i--){ j = Math.floor(Math.random() * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a;
+  }
+
+  var quiz = document.getElementById('quiz');
+  var resultado = document.getElementById('resultado');
+  var evaluadas = []; // funciones que devuelven [aciertos, total] y marcan la pregunta
+  var fichaSel = null;
+  var corregido = false;
+  var num = 0;
+
+  function cabecera(tag){
+    num++;
+    var q = el('div','q');
+    var t = el('span','tag', tag + ' · Pregunta ' + num);
+    q.appendChild(t);
+    return q;
+  }
+  function pie(q, texto){
+    var f = el('div','fb'); f.innerHTML = texto; q.appendChild(f);
+  }
+
+  /* ---------- Selección múltiple y V/F (radios) ---------- */
+  function construirOpciones(tag, item, opciones, indiceOk){
+    var q = cabecera(tag);
+    var name = 'q' + num;
+    q.appendChild(el('h4','',item.q));
+    opciones.forEach(function(txt, i){
+      var lab = el('label','opt');
+      var inp = el('input'); inp.type = 'radio'; inp.name = name; inp.value = i;
+      lab.appendChild(inp); lab.appendChild(el('span','',txt));
+      q.appendChild(lab);
+    });
+    pie(q, item.why);
+    evaluadas.push(function(){
+      var sel = q.querySelector('input:checked');
+      var ok = !!sel && Number(sel.value) === indiceOk;
+      q.classList.add(ok ? 'ok' : 'mal');
+      return [ok ? 1 : 0, 1];
+    });
+    return q;
+  }
+
+  /* ---------- Arrastrar y soltar ---------- */
+  function colocar(ficha, destino){
+    destino.appendChild(ficha);
+    ficha.classList.remove('sel');
+    fichaSel = null;
+  }
+  function construirDnD(item){
+    var q = cabecera('Arrastrar y soltar');
+    q.appendChild(el('h4','',item.q));
+    var banco = el('div','banco'); banco.setAttribute('aria-label','Fichas por clasificar');
+    banco.dataset.zona = '-1';
+    var zonasBox = el('div','zonas');
+    var zonas = item.zonas.map(function(nombre, i){
+      var z = el('div','zona'); z.dataset.zona = String(i);
+      z.appendChild(el('h5','',nombre));
+      zonasBox.appendChild(z);
+      return z;
+    });
+    var fichas = [];
+    mezclar(item.items).forEach(function(it, k){
+      var f = el('span','ficha', it[0]);
+      f.draggable = true; f.tabIndex = 0; f.setAttribute('role','button');
+      f.dataset.resp = String(it[1]);
+      f.id = 'f' + num + '_' + k;
+      banco.appendChild(f); fichas.push(f);
+      f.addEventListener('dragstart', function(e){
+        if (corregido){ e.preventDefault(); return; }
+        e.dataTransfer.setData('text/plain', f.id);
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      function seleccionar(){
+        if (corregido) return;
+        if (fichaSel === f){ f.classList.remove('sel'); fichaSel = null; return; }
+        if (fichaSel && q.contains(fichaSel)){ colocar(fichaSel, f.parentNode); return; }
+        if (fichaSel) fichaSel.classList.remove('sel');
+        fichaSel = f; f.classList.add('sel');
+      }
+      f.addEventListener('click', function(e){ e.stopPropagation(); seleccionar(); });
+      f.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); seleccionar(); }
+      });
+    });
+    function habilitarDestino(d){
+      d.addEventListener('dragover', function(e){ if (!corregido){ e.preventDefault(); d.classList.add('sobre'); } });
+      d.addEventListener('dragleave', function(){ d.classList.remove('sobre'); });
+      d.addEventListener('drop', function(e){
+        e.preventDefault(); d.classList.remove('sobre');
+        if (corregido) return;
+        var f = document.getElementById(e.dataTransfer.getData('text/plain'));
+        if (f && q.contains(f)) colocar(f, d);
+      });
+      d.addEventListener('click', function(){
+        if (corregido || !fichaSel || !q.contains(fichaSel)) return;
+        colocar(fichaSel, d);
+      });
+    }
+    habilitarDestino(banco);
+    zonas.forEach(habilitarDestino);
+    q.appendChild(banco); q.appendChild(zonasBox);
+    pie(q, item.why);
+    evaluadas.push(function(){
+      var bien = 0;
+      fichas.forEach(function(f){
+        var zona = f.parentNode.dataset.zona;
+        var ok = zona === f.dataset.resp;
+        f.classList.remove('ok','mal');
+        f.classList.add(ok ? 'ok' : 'mal');
+        if (ok) bien++;
+      });
+      q.classList.add(bien === fichas.length ? 'ok' : 'mal');
+      return [bien, fichas.length];
+    });
+    return q;
+  }
+
+  /* ---------- Relacionar columnas ---------- */
+  function construirRel(item){
+    var q = cabecera('Relacionar columnas');
+    q.appendChild(el('h4','',item.q));
+    var cont = el('div','rel');
+    var opciones = mezclar(item.pares.map(function(p){ return p[1]; }));
+    var filas = item.pares.map(function(par){
+      var fila = el('div','fila');
+      fila.appendChild(el('strong','',par[0]));
+      var s = el('select'); s.setAttribute('aria-label', par[0]);
+      s.appendChild(new Option('Elige una opción…',''));
+      opciones.forEach(function(o){ s.appendChild(new Option(o,o)); });
+      fila.appendChild(s); cont.appendChild(fila);
+      return {fila:fila, sel:s, resp:par[1]};
+    });
+    q.appendChild(cont);
+    pie(q, item.why);
+    evaluadas.push(function(){
+      var bien = 0;
+      filas.forEach(function(f){
+        var ok = f.sel.value === f.resp;
+        f.fila.classList.remove('ok','mal');
+        f.fila.classList.add(ok ? 'ok' : 'mal');
+        if (ok) bien++;
+      });
+      q.classList.add(bien === filas.length ? 'ok' : 'mal');
+      return [bien, filas.length];
+    });
+    return q;
+  }
+
+  /* ---------- Construcción y corrección ---------- */
+  function construir(){
+    quiz.innerHTML = ''; evaluadas = []; num = 0; fichaSel = null; corregido = false;
+    resultado.textContent = 'Responde y pulsa «Corregir».';
+    MCQ.forEach(function(it){ quiz.appendChild(construirOpciones('Selección múltiple', it, it.o, it.a)); });
+    VF.forEach(function(it){ quiz.appendChild(construirOpciones('Verdadero o falso', it, ['Verdadero','Falso'], it.a ? 0 : 1)); });
+    DND.forEach(function(it){ quiz.appendChild(construirDnD(it)); });
+    REL.forEach(function(it){ quiz.appendChild(construirRel(it)); });
+  }
+
+  function corregir(){
+    if (corregido) return;
+    corregido = true;
+    var puntos = 0;
+    evaluadas.forEach(function(fn){ var r = fn(); puntos += r[0] / r[1]; });
+    var total = evaluadas.length;
+    var nota = Math.round(puntos * 10) / 10;
+    var pct = Math.round(puntos / total * 100);
+    var msg = pct >= 90 ? '🏆 ¡Excelente!' : pct >= 70 ? '👏 ¡Muy bien!' : pct >= 50 ? '🙂 Vas bien. Repasa los recursos.' : '📚 Repasa los recursos e inténtalo otra vez.';
+    resultado.textContent = 'Puntaje: ' + nota + ' de ' + total + ' (' + pct + ' %). ' + msg;
+    var primera = quiz.querySelector('.q.mal');
+    if (primera) primera.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+
+  document.getElementById('btn-corregir').addEventListener('click', corregir);
+  document.getElementById('btn-reiniciar').addEventListener('click', function(){
+    construir(); quiz.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.addEventListener('click', function(e){
+    // tocar fuera de una ficha seleccionada la deselecciona
+    if (fichaSel && !e.target.closest('.zona, .banco, .ficha')){ fichaSel.classList.remove('sel'); fichaSel = null; }
+  });
+
+  /* ---------- Sopa de letras ---------- */
+  (function(){
+    var N = 12;
+    var PAL = ['VITAMINA','VERDURAS','PROTEINA','ENERGIA','FRUTAS','CALCIO','FIBRA','SALUD','AGUA','YUCA'];
+    var cont = document.getElementById('sopa');
+    var lista = document.getElementById('palabras');
+    var estado = document.getElementById('sopa-estado');
+    var celdas = [], grid = [], inicio = null, halladas = {};
+
+    function rng(seed){ return function(){ seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }; }
+
+    function generar(){
+      var r = rng(2026), i, j, k, w;
+      grid = [];
+      for (i = 0; i < N; i++){ grid.push([]); for (j = 0; j < N; j++) grid[i].push(''); }
+      var dirs = [[0,1],[1,0],[1,1]];
+      PAL.forEach(function(pal){
+        for (var t = 0; t < 500; t++){
+          var d = dirs[Math.floor(r() * dirs.length)];
+          var f = Math.floor(r() * N), c = Math.floor(r() * N);
+          var f2 = f + d[0] * (pal.length - 1), c2 = c + d[1] * (pal.length - 1);
+          if (f2 >= N || c2 >= N) continue;
+          var ok = true;
+          for (k = 0; k < pal.length; k++){
+            var v = grid[f + d[0] * k][c + d[1] * k];
+            if (v !== '' && v !== pal.charAt(k)){ ok = false; break; }
+          }
+          if (!ok) continue;
+          for (k = 0; k < pal.length; k++) grid[f + d[0] * k][c + d[1] * k] = pal.charAt(k);
+          return;
+        }
+        throw new Error('No se pudo ubicar ' + pal);
+      });
+      var rel = 'ABCDEFGHILMNOPRSTUV';
+      for (i = 0; i < N; i++) for (j = 0; j < N; j++) if (grid[i][j] === '') grid[i][j] = rel.charAt(Math.floor(r() * rel.length));
+    }
+
+    function dibujar(){
+      cont.innerHTML = ''; lista.innerHTML = ''; celdas = []; inicio = null; halladas = {};
+      cont.style.gridTemplateColumns = 'repeat(' + N + ',1fr)';
+      for (var i = 0; i < N; i++) for (var j = 0; j < N; j++){
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'celda'; b.textContent = grid[i][j];
+        b.dataset.r = i; b.dataset.c = j;
+        b.setAttribute('aria-label', 'Letra ' + grid[i][j] + ', fila ' + (i + 1) + ', columna ' + (j + 1));
+        b.addEventListener('click', tocar);
+        cont.appendChild(b); celdas.push(b);
+      }
+      PAL.slice().sort().forEach(function(p){
+        var s = document.createElement('span'); s.className = 'pal'; s.textContent = p; s.dataset.p = p; lista.appendChild(s);
+      });
+      estado.textContent = 'Palabras encontradas: 0 de ' + PAL.length;
+    }
+
+    function celda(i, j){ return celdas[i * N + j]; }
+    function limpiarSel(){ celdas.forEach(function(c){ c.classList.remove('sel'); }); inicio = null; }
+
+    function tocar(e){
+      var b = e.currentTarget, r = Number(b.dataset.r), c = Number(b.dataset.c);
+      if (!inicio){ inicio = [r, c]; b.classList.add('sel'); return; }
+      if (inicio[0] === r && inicio[1] === c){ limpiarSel(); return; }
+      var dr = r - inicio[0], dc = c - inicio[1];
+      var largo = Math.max(Math.abs(dr), Math.abs(dc)) + 1;
+      var recta = (dr === 0 || dc === 0 || Math.abs(dr) === Math.abs(dc));
+      var sr = Math.sign(dr), sc = Math.sign(dc), letras = '', usadas = [], k;
+      if (recta){
+        for (k = 0; k < largo; k++){
+          var ff = inicio[0] + sr * k, cc = inicio[1] + sc * k;
+          letras += grid[ff][cc]; usadas.push(celda(ff, cc));
+        }
+      }
+      var inversa = letras.split('').reverse().join('');
+      var hallada = null;
+      PAL.forEach(function(p){ if (!halladas[p] && (p === letras || p === inversa)) hallada = p; });
+      var marcadas = usadas.concat([celda(inicio[0], inicio[1]), b]);
+      if (hallada){
+        halladas[hallada] = true;
+        usadas.forEach(function(x){ x.classList.add('hallada'); });
+        var chip = lista.querySelector('[data-p="' + hallada + '"]');
+        if (chip) chip.classList.add('ok');
+        limpiarSel();
+        var n = Object.keys(halladas).length;
+        estado.textContent = n === PAL.length ? '🎉 ¡Encontraste todas las palabras!' : 'Palabras encontradas: ' + n + ' de ' + PAL.length;
+      } else {
+        marcadas.forEach(function(x){ if (!x.classList.contains('hallada')) x.classList.add('error'); });
+        limpiarSel();
+        setTimeout(function(){ celdas.forEach(function(x){ x.classList.remove('error'); }); }, 450);
+      }
+    }
+
+    generar(); dibujar();
+    document.getElementById('btn-sopa').addEventListener('click', dibujar);
+  })();
+
+  construir();
+})();
+</script>
+</body>
+</html>
